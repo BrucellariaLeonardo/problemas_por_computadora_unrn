@@ -62,4 +62,20 @@ matrixT matrixLoader(char* fPath)
     }
     return matriz;
 }
-
+void printMatrix(matrixT matrix)
+//recibe una matriz y la muestr por pantalla
+{
+    for(int fil=0; fil<matrix.dimFil; fil++)
+    {
+        printf("[");
+        for(int col=0; col<matrix.dimCol; col++)
+        {
+            printf("%d", (matrix.data[fil][col]));
+            if(col < matrix.dimCol-1)
+            {
+                printf("\t");
+            }
+        }
+        printf("]\n");
+    }
+}

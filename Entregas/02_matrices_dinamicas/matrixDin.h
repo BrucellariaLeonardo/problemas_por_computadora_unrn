@@ -12,6 +12,6 @@ typedef struct matrixT
 
 
 matrixT matrixLoader(char* fPath);
-//void printMatrix()
+void printMatrix(matrixT matrix);
 
 #endif
