@@ -11,8 +11,9 @@ typedef struct matrixT
 } matrixT;
 
 
-matrixT matrixLoader(char* fPath);
+matrixT matrixLoader(FILE* fptr);
 void printMatrix(matrixT matrix);
 matrixT addMat(matrixT A, matrixT B);
+void freeMat(matrixT mat);
 
 #endif

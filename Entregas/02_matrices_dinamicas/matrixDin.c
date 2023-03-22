@@ -1,5 +1,6 @@
 #include "matrixDin.h"
 int** matrixAloc(int dim1,int dim2)
+// funcion interna de la libreria, que se encarga de reservar memoria para almacenar los datos de una matriz
 {
     int** mat;
     mat = calloc(dim1, sizeof(int*)); //creo el arreglo para guardar cada fila
@@ -20,17 +21,9 @@ int** matrixAloc(int dim1,int dim2)
     return mat;
 }
 
-matrixT matrixLoader(char* fPath)
+matrixT matrixLoader(FILE *fptr)
 // recibe un archivo y lee una matriz desde el mismo
 {
-    // abro mi archivo
-    FILE* fptr = fopen(fPath, "r");
-    // compruebo que el archivo se pudo abrir
-    if (fptr == NULL)
-    {
-        printf("Fallo al abrir el archivo\n");
-        exit(-1);
-    }
     // creo la estructura donde voy a guardar lo leido del archivo
     matrixT matriz;
     // tomo el primer elemento del archivo para guardarlo en la dimension de la fila de la estructura
@@ -54,11 +47,9 @@ matrixT matrixLoader(char* fPath)
     {
         for(int col=0; col<matriz.dimCol; col++)
         {
-                //fread(&buff, sizeof(int), 1, fptr);
                 if(!feof(fptr))
                 {
                     fscanf(fptr, "%d", &(matriz.data[fil][col]));
-                    //printf("%d\t", buff);
                 }else
                 {
                     printf("Fallo obteniendo los valores de la mtriz, compruebe que su archivo este bien definido.");
@@ -100,4 +91,14 @@ matrixT addMat(matrixT A, matrixT B)
         }
     }
     return res;
+}
+void freeMat(matrixT mat)
+// libera la memoria de una matriz
+{
+    for( int fil=0; fil<mat.dimFil; fil++)
+    {
+        free(mat.data[fil]);
+    }
+    free(mat.data);
+    return;
 }
