@@ -85,3 +85,19 @@ void printMatrix(matrixT matrix)
         printf("]\n");
     }
 }
+matrixT addMat(matrixT A, matrixT B)
+// se reciben dos matrices de las mismas dimensiones y retrona su suma
+{
+    matrixT res;
+    res.dimCol = A.dimCol;
+    res.dimFil = A.dimFil;
+    res.data = matrixAloc(res.dimFil, res.dimCol);
+    for (int fil = 0; fil<A.dimFil; fil++)
+    {
+        for(int col=0; col<A.dimCol; col++)
+        {
+            res.data[fil][col]= A.data[fil][col] + B.data[fil][col];
+        }
+    }
+    return res;
+}
