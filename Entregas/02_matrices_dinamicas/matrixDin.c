@@ -1,5 +1,24 @@
 #include "matrixDin.h"
-
+int** matrixAloc(int dim1,int dim2)
+{
+    int** mat;
+    mat = calloc(dim1, sizeof(int*)); //creo el arreglo para guardar cada fila
+    if( mat == NULL)
+    {
+        printf("Fallo al reservar memoria.");
+        exit(-1);
+    }
+    for (int i=0; i<dim1; i++)
+    {
+        mat[i] = calloc(dim2, sizeof(int)); //creo los arreglos de cada columna asociada a cada fila
+        if(mat[i] == NULL)
+        {
+            printf("Fallo al reservar memoria.");
+            exit(-1);
+        }
+    }
+    return mat;
+}
 
 matrixT matrixLoader(char* fPath)
 // recibe un archivo y lee una matriz desde el mismo
@@ -29,21 +48,7 @@ matrixT matrixLoader(char* fPath)
         fscanf(fptr, "%d", &(matriz.dimCol));
     }    
     // aloco la ma memoria para mi matrix y guardo la direccion de ese puntero
-    matriz.data = calloc(matriz.dimFil, sizeof(int*)); //creo el arreglo para guardar cada fila
-    if(matriz.data == NULL)
-    {
-        printf("fallo crendo la mtriz");
-        exit(-1);
-    }
-    for(int i = 0; i<matriz.dimFil; i++) //cargo en las filas las posiciones correspondientes a cada columna
-    {
-        matriz.data[i] = calloc(matriz.dimCol, sizeof(int));
-        if(matriz.data[i] == NULL)
-        {
-            printf("fallo crendo la mtriz");
-            exit(-1);
-        }
-    }
+    matriz.data = matrixAloc(matriz.dimFil, matriz.dimCol);
     // tomo elemento a elemento los datos del archivo para cargarlos en mi matriz
     for(int fil=0; fil< matriz.dimFil; fil++)
     {
@@ -62,6 +67,7 @@ matrixT matrixLoader(char* fPath)
     }
     return matriz;
 }
+
 void printMatrix(matrixT matrix)
 //recibe una matriz y la muestr por pantalla
 {
