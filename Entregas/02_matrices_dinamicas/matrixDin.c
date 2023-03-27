@@ -1,9 +1,9 @@
 #include "matrixDin.h"
-int** matrixAloc(int dim1,int dim2)
+float** matrixAloc(int dim1,int dim2)
 // funcion interna de la libreria, que se encarga de reservar memoria para almacenar los datos de una matriz
 {
-    int** mat;
-    mat = calloc(dim1, sizeof(int*)); //creo el arreglo para guardar cada fila
+    float** mat;
+    mat = calloc(dim1, sizeof(float*)); //creo el arreglo para guardar cada fila
     if( mat == NULL)
     {
         printf("Fallo al reservar memoria.");
@@ -11,7 +11,7 @@ int** matrixAloc(int dim1,int dim2)
     }
     for (int i=0; i<dim1; i++)
     {
-        mat[i] = calloc(dim2, sizeof(int)); //creo los arreglos de cada columna asociada a cada fila
+        mat[i] = calloc(dim2, sizeof(float)); //creo los arreglos de cada columna asociada a cada fila
         if(mat[i] == NULL)
         {
             printf("Fallo al reservar memoria.");
@@ -49,7 +49,7 @@ matrixT matrixLoader(FILE *fptr)
         {
                 if(!feof(fptr))
                 {
-                    fscanf(fptr, "%d", &(matriz.data[fil][col]));
+                    fscanf(fptr, "%f", &(matriz.data[fil][col]));
                 }else
                 {
                     printf("Fallo obteniendo los valores de la mtriz, compruebe que su archivo este bien definido.");
@@ -67,7 +67,7 @@ void printMatrix(matrixT matrix)
         printf("[");
         for(int col=0; col<matrix.dimCol; col++)
         {
-            printf("%d", (matrix.data[fil][col]));
+            printf("%.2f", (matrix.data[fil][col]));
             if(col < matrix.dimCol-1)
             {
                 printf("\t");
@@ -102,7 +102,7 @@ void freeMat(matrixT mat)
     free(mat.data);
     return;
 }
-void escalarMat(matrixT mat, int escalar)
+void escalarMat(matrixT mat, float escalar)
 {
     for(int fil=0; fil<mat.dimFil; fil++)
     {

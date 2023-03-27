@@ -28,6 +28,7 @@ int main(int argc, char* argv[])
         printf("--------------------------\n");
         printMatrix(mat[2]);
         escalarMat(mat[2], 3);
+        printf("\n");
         printMatrix(mat[2]);
         if(argc == 4) //si recibi un archivo de salida lo escribo
         {
