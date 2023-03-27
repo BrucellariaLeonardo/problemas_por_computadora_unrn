@@ -102,3 +102,14 @@ void freeMat(matrixT mat)
     free(mat.data);
     return;
 }
+void escalarMat(matrixT mat, int escalar)
+{
+    for(int fil=0; fil<mat.dimFil; fil++)
+    {
+        for(int col=0; col<mat.dimCol; col++)
+        {
+            mat.data[fil][col] = mat.data[fil][col]*escalar;    
+        }
+    }
+    return;
+}

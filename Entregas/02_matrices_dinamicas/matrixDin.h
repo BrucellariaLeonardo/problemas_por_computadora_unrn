@@ -15,5 +15,6 @@ matrixT matrixLoader(FILE* fptr);
 void printMatrix(matrixT matrix);
 matrixT addMat(matrixT A, matrixT B);
 void freeMat(matrixT mat);
+void escalarMat(matrixT mat, int escalar);
 
 #endif
