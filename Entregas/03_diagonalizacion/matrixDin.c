@@ -30,7 +30,6 @@ void addFil(matrixT* mat, int filRes, int filSour)
     }
     return;
 }
-
 void subFil(matrixT* mat, int filRes, int filSour)
 //operacion inplace para restar filas
 {
@@ -40,7 +39,6 @@ void subFil(matrixT* mat, int filRes, int filSour)
     }
     return;
 }
-
 void scaleFil(matrixT* mat, int fil, int fact)
 //operacion inplace para escalar una fila por un factor fact
 {
@@ -50,7 +48,28 @@ void scaleFil(matrixT* mat, int fil, int fact)
     }
     return;
 }
-
+void filPermutation(matrixT* mat, int filA, int filB)
+{
+    float aux;
+    for(int c=0; c<mat->dimCol; c++)
+    {
+        aux = mat->data[filA][c];
+        mat->data[filA][c] = mat->data[filB][c];
+        mat->data[filB][c] = aux;
+    }
+    return;
+}
+void colPermutation(matrixT* mat, int colA, int colB)
+{
+    float aux;
+    for(int c=0; c<mat->dimFil; c++)
+    {
+        aux = mat->data[c][colA];
+        mat->data[c][colA] = mat->data[c][colB];
+        mat->data[c][colB] = aux;
+    }
+    return;
+}
 ///funcionalidades de usuario///
 matrixT matrixLoader(FILE *fptr)
 // recibe un archivo y lee una matriz desde el mismo

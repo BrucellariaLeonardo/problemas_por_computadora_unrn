@@ -22,3 +22,5 @@ float det(matrixT mat);
 
 ///funcionalidades internas///////
 //void addFil(matrixT* mat, int filRes, int filSour);
+void filPermutation(matrixT* mat, int filA, int filB);
+void colPermutation(matrixT* mat, int colA, int colB);
