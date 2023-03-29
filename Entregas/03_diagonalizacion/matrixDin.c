@@ -21,6 +21,15 @@ float** matrixAloc(int dim1,int dim2)
     }
     return mat;
 }
+void addScalFil(matrixT* mat, int filRes, int filSour, int scale)
+//operacion inplace para sumar a filRes scale veces la fila filsour
+{
+    for( int c=0; c<mat->dimCol; c++)
+    {
+        mat->data[filRes][c] = mat->data[filRes][c] + scale * mat->data[filSour][c];
+    }
+    return;
+}
 void addFil(matrixT* mat, int filRes, int filSour)
 //operacion inplace para sumar filas de una matriz
 {
@@ -39,7 +48,7 @@ void subFil(matrixT* mat, int filRes, int filSour)
     }
     return;
 }
-void scaleFil(matrixT* mat, int fil, int fact)
+void scaleFil(matrixT* mat, int fil, float fact)
 //operacion inplace para escalar una fila por un factor fact
 {
     for( int c=0; c<mat->dimCol; c++)
@@ -192,4 +201,75 @@ matrixT subMat(matrixT mat, int fil, int col)
         }
     }
     return sub;
+}
+
+matrixT diag(matrixT mat)
+{
+    if(mat.dimCol < mat.dimFil)
+    {
+
+    }else
+    {
+        for(int f=0; f<mat.dimFil; f++) //ciclo para cada reduccion
+        {
+            if(mat.data[f][f] == 0) //si la fila es 0 en la diagonal principal la swapeo
+            {
+                int i=0;
+                for(i; i<mat.dimFil; i++) //busco una fila con componente distinta de 0
+                {
+                    if(mat.data[i][f] == 0)
+                    {
+                        break;
+                    }
+                }
+                if(i != mat.dimFil) //si encontre ninguna fila que cumpla
+                {
+                    filPermutation(&mat, f, i);
+                }else{ //si no encontre la fila hago una permutacion
+                    printf("\n\n TO DO...\n\n"); //TO DO
+                }
+            }else //si la componente de interes es distinta de 0
+            {
+                scaleFil(&mat, f, 1/mat.data[f][f]); // la escalo
+                for(int i=f+1; i<mat.dimFil; i++)
+                {
+                    addScalFil(&mat, i, f, -mat.data[i][f]);
+                }
+            }
+
+        }
+    }
+    return mat;
+}
+float det(matrixT mat)
+{
+    float acum1 = 0; //acumulador para los terminos positivos del determinante
+    float acum2 = 0; // acumulador para los terminos negativos del determinante
+    float det = 0;
+   if ((mat.dimFil != 1) || (mat.dimCol != 1))
+    {
+        for (int f= 0; f<mat.dimFil; f++)
+        {
+            acum1 = 1;
+            acum2 = 1;
+            for (int c=0; c<mat.dimFil; c++)
+            {
+                if(f+c < mat.dimFil) //terminos podtivos del determinante
+                {
+                    acum1 = acum1*mat.data[c+f][c];
+                    acum2 = acum2*mat.data[c+f][mat.dimCol-1-c];
+                }else{
+                    acum1 = acum1*mat.data[f+c-mat.dimFil][c];
+                    acum2 = acum2*mat.data[f+c-mat.dimFil][mat.dimCol-1-c];
+
+                }
+            }
+//            det += acum1 - acum2;
+            det = det + acum1;
+            det = det - acum2;
+        }
+    }else{
+        det = mat.data[0][0];
+    }
+    return det;
 }
