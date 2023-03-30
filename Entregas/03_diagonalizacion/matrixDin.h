@@ -25,5 +25,5 @@ matrixT diag(matrixT mat);
 //void addFil(matrixT* mat, int filRes, int filSour);
 void filPermutation(matrixT* mat, int filA, int filB);
 void colPermutation(matrixT* mat, int colA, int colB);
-void addScalFil(matrixT* mat, int filRes, int filSour, int scale);
+void addScalFil(matrixT* mat, int filRes, int filSour, float scale);
 

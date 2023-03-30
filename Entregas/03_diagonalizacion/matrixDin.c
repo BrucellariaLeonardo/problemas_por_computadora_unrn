@@ -21,7 +21,7 @@ float** matrixAloc(int dim1,int dim2)
     }
     return mat;
 }
-void addScalFil(matrixT* mat, int filRes, int filSour, int scale)
+void addScalFil(matrixT* mat, int filRes, int filSour, float scale)
 //operacion inplace para sumar a filRes scale veces la fila filsour
 {
     for( int c=0; c<mat->dimCol; c++)
