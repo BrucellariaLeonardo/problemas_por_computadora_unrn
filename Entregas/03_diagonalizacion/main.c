@@ -34,8 +34,8 @@ int main(int argc, char* argv[])
     //....
     //volver 0 la n esima
     printMatrix(mat[0]);
-    addFil(&mat[0], 0,1);
     printf("\n");
+    mat[0] = diag(mat[0]);
     printMatrix(mat[0]);
 
     //printMatrix(subMat(mat[0],1,0));

@@ -205,7 +205,7 @@ matrixT subMat(matrixT mat, int fil, int col)
 
 matrixT diag(matrixT mat)
 {
-    if(mat.dimCol < mat.dimFil)
+    if(0)
     {
 
     }else
@@ -214,24 +214,24 @@ matrixT diag(matrixT mat)
         {
             if(mat.data[f][f] == 0) //si la fila es 0 en la diagonal principal la swapeo
             {
-                int i=0;
-                for(i; i<mat.dimFil; i++) //busco una fila con componente distinta de 0
+                int i=mat.dimFil-1;
+                for(i; i>f; i--) //busco una fila con componente distinta de 0 (de abajo hacia arriba)
                 {
-                    if(mat.data[i][f] == 0)
+                    if(mat.data[i][f] != 0)
                     {
                         break;
                     }
                 }
-                if(i != mat.dimFil) //si encontre ninguna fila que cumpla
+                if(i != f) //si encontre ninguna fila que cumpla
                 {
                     filPermutation(&mat, f, i);
-                }else{ //si no encontre la fila hago una permutacion
+                }/*else{ //si no encontre ninguna fila 
                     printf("\n\n TO DO...\n\n"); //TO DO
-                }
-            }else //si la componente de interes es distinta de 0
-            {
+                }*/
+            } 
+            if(mat.data[f][f] != 0){ // condicion verdadera si se encontro alguna fila distinta de 0
                 scaleFil(&mat, f, 1/mat.data[f][f]); // la escalo
-                for(int i=f+1; i<mat.dimFil; i++)
+                for(int i=f+1; i<mat.dimFil; i++)  
                 {
                     addScalFil(&mat, i, f, -mat.data[i][f]);
                 }
