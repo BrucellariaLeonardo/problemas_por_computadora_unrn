@@ -205,39 +205,34 @@ matrixT subMat(matrixT mat, int fil, int col)
 
 matrixT diag(matrixT mat)
 {
-    if(0)
-    {
 
-    }else
+    for(int f=0; f<mat.dimFil; f++) //ciclo para cada reduccion
     {
-        for(int f=0; f<mat.dimFil; f++) //ciclo para cada reduccion
+        if(mat.data[f][f] == 0) //si la fila es 0 en la diagonal principal la swapeo
         {
-            if(mat.data[f][f] == 0) //si la fila es 0 en la diagonal principal la swapeo
+            int i=mat.dimFil-1;
+            for(i; i>f; i--) //busco una fila con componente distinta de 0 (de abajo hacia arriba)
             {
-                int i=mat.dimFil-1;
-                for(i; i>f; i--) //busco una fila con componente distinta de 0 (de abajo hacia arriba)
+                if(mat.data[i][f] != 0)
                 {
-                    if(mat.data[i][f] != 0)
-                    {
-                        break;
-                    }
-                }
-                if(i != f) //si encontre ninguna fila que cumpla
-                {
-                    filPermutation(&mat, f, i);
-                }/*else{ //si no encontre ninguna fila 
-                    printf("\n\n TO DO...\n\n"); //TO DO
-                }*/
-            } 
-            if(mat.data[f][f] != 0){ // condicion verdadera si se encontro alguna fila distinta de 0
-                scaleFil(&mat, f, 1/mat.data[f][f]); // la escalo
-                for(int i=f+1; i<mat.dimFil; i++)  
-                {
-                    addScalFil(&mat, i, f, -mat.data[i][f]);
+                    break;
                 }
             }
-
+            if(i != f) //si encontre ninguna fila que cumpla
+            {
+                filPermutation(&mat, f, i);
+            }/*else{ //si no encontre ninguna fila 
+                printf("\n\n TO DO...\n\n"); //TO DO
+            }*/
+        } 
+        if(mat.data[f][f] != 0){ // condicion verdadera si se encontro alguna fila distinta de 0
+            scaleFil(&mat, f, 1/mat.data[f][f]); // la escalo
+            for(int i=f+1; i<mat.dimFil; i++)  
+            {
+                addScalFil(&mat, i, f, -mat.data[i][f]);
+            }
         }
+
     }
     return mat;
 }
