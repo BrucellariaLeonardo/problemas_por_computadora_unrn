@@ -15,6 +15,19 @@ matrixT initMat(int row, int col)
  return mat;
 }
 
+
+/////////////De usuario////////////////
+
+int itsEmpy(matrixT mat)
+//retorna 1 si la matriz esta vacia y 0 caso contrario
+{
+    int empy = 0; 
+    if(mat.lenData == 0)
+    {
+        empy = 1;
+    }
+    return 1;
+}
 /*float* position(matrixT mat, int row, int col);
 // En caso de que la posicion exista, retorna un puntero al elemento en la posicion anterior a la buscada
 // Si la posicion buscada es el primer elemento, se retorna NULL
