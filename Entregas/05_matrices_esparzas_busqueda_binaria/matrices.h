@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "constantes.h"
 typedef struct coordinateT
 {
@@ -19,7 +20,12 @@ typedef struct matrixT
     matrixData *matrix; // datos de la matriz, y sus respectivos indices
     int lenData, memSize;        //indicador de cuantos elementos definidos posee la matriz
 }matrixT;
+
 matrixT initMat(int row, int col);
+int itsEmpy(matrixT mat);
+int itsFull(matrixT mat);
+void loadRandMat(matrixT* mat, float fact);
+void addElement(matrixT* mat, float data, int row, int col);
 
 
 
