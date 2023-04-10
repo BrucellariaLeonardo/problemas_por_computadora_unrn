@@ -26,8 +26,10 @@ int itsEmpy(matrixT mat)
     {
         empy = 1;
     }
-    return 1;
+    return empy;
 }
+
+
 /*float* position(matrixT mat, int row, int col);
 // En caso de que la posicion exista, retorna un puntero al elemento en la posicion anterior a la buscada
 // Si la posicion buscada es el primer elemento, se retorna NULL
