@@ -1,6 +1,5 @@
-- Implementar a menos el algoritmo de diagonalización.
-- No libera los recursos reservados. Implementar operaciones de escritura de una matriz en un archivo.
-- Idealmente, matrixLoader debiera recibir un FILE * para que el chequé de que el archivo exista y demás lo realice quien usa la función.
+- Implementar el algoritmo de diagonalización.
 - Manejar los errores usando el stderr.
+- Implementar la escritura de una matriz en un archivo.
 
 Nota: Reentregar
