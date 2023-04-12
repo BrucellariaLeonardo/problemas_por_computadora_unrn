@@ -6,6 +6,7 @@ int main(int argc, char* argv[])
 {
     matrixT mat[3];
     FILE *fptr;
+//carga del archivo
     if(argc == 3 || argc == 4)
     {
         for (int arg=1;arg<3; arg++) //recorro los parametros recibidos de la terminal
@@ -21,26 +22,28 @@ int main(int argc, char* argv[])
                     exit(-1);
                 }
         }
-        mat[2] = addMat(mat[0],mat[1]);
-        printMatrix(mat[0]);
-        printf("+\n");
-        printMatrix(mat[1]);
-        printf("--------------------------\n");
-        printMatrix(mat[2]);
-        escalarMat(mat[2], 3);
-        printf("\n");
-        printMatrix(mat[2]);
-        if(argc == 4) //si recibi un archivo de salida lo escribo
-        {
-            //TO DO, escribir el archivo de salida
-        }
-        for(int i; i<3; i++)
-        {
-            freeMat(mat[i]);
-        }
     }else{
         printf("Numero de parametros invalido.");
         exit(-2);
     }
-    return 0;   
+    //comprobar que es diagonalizable
+    
+    //volver 0 la primer componente
+        //escalar la primer fila y resarla de cada fila inferior
+    //volver 0 la segunda
+    //....
+    //volver 0 la n esima
+    printMatrix(mat[0]);
+    printf("\n");
+    mat[0] = diag(mat[0]);
+    printMatrix(mat[0]);
+
+    //printMatrix(subMat(mat[0],1,0));
+    /*printf("%.2f", det(mat[0]));
+        for(int i; i<3; i++)
+        {
+            freeMat(mat[i]);
+        }*/
+    return 0;
+       
 }

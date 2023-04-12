@@ -1,0 +1,4 @@
+logica de primer orden.
+modelo de turing
+semantica denotacional
+doxigen
