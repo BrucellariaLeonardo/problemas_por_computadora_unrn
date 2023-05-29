@@ -35,7 +35,7 @@ public:
     Polinom operator+ (const Polinom &p);
     Polinom operator- (const Polinom &p);
     Polinom operator* (const Polinom &mult);
-    int operator() (int x);
+    float operator() (int x);
     friend istream &operator>> (istream &data, Polinom &pol);
     friend ostream &operator<<  (std:: ostream& out, const Polinom &pol);
 
@@ -142,12 +142,14 @@ Polinom Polinom::operator- (const Polinom &p)
     }
     return res;
 }  
-int Polinom::operator() (int x)
+float Polinom::operator() (int x)
 {
-    int res = 0;
-    for(int i= grade; i<grade; i++)
+    float res = 0;
+    for(int i= 0; i<grade; i++)
     {
-        res =+ coeficents[i]*(pow(x,grade));
+        res += coeficents[i]*(pow(x,i));
+        cout << res;
+        cout << "\n";
     }
     return res;
 }
@@ -171,10 +173,10 @@ Polinom Polinom::operator* (const Polinom &mult) //TO DO
     }
     return res;
 }
-
+*/
 Polinom::~Polinom()
 {
 }
 
-*/
+
 #endif
