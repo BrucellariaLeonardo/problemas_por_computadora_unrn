@@ -45,14 +45,14 @@ istream &operator>> (istream &data, Polinom &pol)
 {
     data >> pol.grade;
     delete(pol.coeficents);
-    pol.coeficents = new float[pol.grade];
-    for (int i = 0; i < pol.grade; i++)
+    pol.coeficents = new float[pol.grade+1];
+    for (int i = 0; i <= pol.grade; i++)
         data >> pol.coeficents[i];
     return data;
 }
 ostream &operator<<  (std:: ostream& out, const Polinom &pol)
 {
-    for(int i=pol.grade-1; i>=0; i--)
+    for(int i=pol.grade; i>=0; i--)
     {
         out << pol.coeficents[i];
         out << "X^";
@@ -72,8 +72,8 @@ Polinom:: Polinom (){
 Polinom::Polinom(const int g,const float *c) //contructor a partir de un grado y una lista de constantes
 {
     grade = g;
-    coeficents = new float[g];
-    for (int i=0; i<g; i++)
+    coeficents = new float[g+1];
+    for (int i=0; i<=grade; i++)
     {
         coeficents[i] = c[i];
     }
@@ -81,8 +81,8 @@ Polinom::Polinom(const int g,const float *c) //contructor a partir de un grado y
 Polinom::Polinom (const Polinom &p) //constructor por copia
 {
     grade = p.grade;
-    coeficents = new float[p.grade];
-    for (int i=0; i<p.grade; i++)
+    coeficents = new float[p.grade+1];
+    for (int i=0; i<=p.grade; i++)
     {
         coeficents[i] = p.coeficents[i];
     }
@@ -94,23 +94,29 @@ Polinom Polinom:: operator+ (const Polinom &p)
     if(grade > p.grade) //determino cual polinomio posee un mayor grade 
     {
         res.grade = grade;
-        for(int i= 0; i<p.grade; i++) //sumo los coeficientes que poseen valores de ambos polinomios
+        for(int i= 0; i<=p.grade; i++) //sumo los coeficientes que poseen valores de ambos polinomios
         {
             res.coeficents[i] = coeficents[i] + p.coeficents[i];
         }
-        for(int i = p.grade; i<grade; i++) //agrego los coeficientes de mayor orden
+        for(int i = p.grade+1; i<=grade; i++) //agrego los coeficientes de mayor orden
         {
             res.coeficents[i] = coeficents[i];
         }
-    }else{
+    }else if (p.grade > grade){
         res.grade = p.grade;
-        for(int i= 0; i<grade; i++) //sumo los coeficientes que poseen valores de ambos polinomios
+        for(int i= 0; i<=grade; i++) //sumo los coeficientes que poseen valores de ambos polinomios
         {
             res.coeficents[i] = coeficents[i] + p.coeficents[i];
         }
-        for(int i = grade; i<p.grade; i++) //agrego los coeficientes de mayor orden
+        for(int i = grade+1; i<=p.grade; i++) //agrego los coeficientes de mayor orden
         {
             res.coeficents[i] = p.coeficents[i];
+        }
+    }else{
+        res.grade = p.grade;
+        for(int i= 0; i<=grade; i++) //sumo los coeficientes que poseen valores de ambos polinomios
+        {
+            res.coeficents[i] = coeficents[i] + p.coeficents[i];
         }
     }
     return res;
@@ -121,23 +127,29 @@ Polinom Polinom::operator- (const Polinom &p)
     if(grade > p.grade) //determino cual polinomio posee un mayor grade 
     {
         res.grade = grade;
-        for(int i= 0; i<p.grade; i++) //sumo los coeficientes que poseen valores de ambos polinomios
+        for(int i= 0; i<=p.grade; i++) //sumo los coeficientes que poseen valores de ambos polinomios
         {
             res.coeficents[i] = coeficents[i] - p.coeficents[i];
         }
-        for(int i = p.grade; i<grade; i++) //agrego los coeficientes de mayor orden
+        for(int i = p.grade+1; i<=grade; i++) //agrego los coeficientes de mayor orden
         {
             res.coeficents[i] = coeficents[i];
         }
-    }else{
+    }else if (p.grade > grade){
         res.grade = p.grade;
-        for(int i= 0; i<grade; i++) //sumo los coeficientes que poseen valores de ambos polinomios
+        for(int i= 0; i<=grade; i++) //sumo los coeficientes que poseen valores de ambos polinomios
         {
             res.coeficents[i] = coeficents[i] - p.coeficents[i];
         }
-        for(int i = grade; i<p.grade; i++) //agrego los coeficientes de mayor orden
+        for(int i = grade+1; i<=p.grade; i++) //agrego los coeficientes de mayor orden
         {
             res.coeficents[i] = -p.coeficents[i];
+        }
+    }else{
+        res.grade = p.grade;
+        for(int i= 0; i<=grade; i++) //sumo los coeficientes que poseen valores de ambos polinomios
+        {
+            res.coeficents[i] = coeficents[i] - p.coeficents[i];
         }
     }
     return res;
@@ -145,25 +157,25 @@ Polinom Polinom::operator- (const Polinom &p)
 float Polinom::operator() (int x)
 {
     float res = 0;
-    for(int i= 0; i<grade; i++)
+    for(int i= 0; i<=grade; i++)
     {
         res += coeficents[i]*(pow(x,i));
     }
     return res;
 }
-/*
+
 Polinom Polinom::operator* (const Polinom &mult) //TO DO
 {
     //creacion de un polinomio res lleno de ceros
     Polinom res;
-    res.grade = grade*mult.grade;
+    res.grade = grade+mult.grade;
     delete(res.coeficents);
     res.coeficents = new float[res.grade];
     for (int i = 0; i<res.grade; i++) res.coeficents[i] = 0;
     //se calcula cada termino de la multiplicacion uno a uno y se los suma a su grado correspondiente
-    for (int i = 0; i<mult.grade; i++)
+    for (int i = 0; i<=mult.grade; i++)
     {
-        for (int j = 0; j<grade; j++)
+        for (int j = 0; j<=grade; j++)
         {
             res.coeficents[i+j] += mult.coeficents[i]*coeficents[j];
         }
@@ -171,7 +183,6 @@ Polinom Polinom::operator* (const Polinom &mult) //TO DO
     }
     return res;
 }
-*/
 Polinom::~Polinom()
 {
 }
