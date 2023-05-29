@@ -148,8 +148,6 @@ float Polinom::operator() (int x)
     for(int i= 0; i<grade; i++)
     {
         res += coeficents[i]*(pow(x,i));
-        cout << res;
-        cout << "\n";
     }
     return res;
 }

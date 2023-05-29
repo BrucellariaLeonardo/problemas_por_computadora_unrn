@@ -13,7 +13,7 @@ int main()
     F.close();
     cout << pol1;
     //cout << pol2;
-    pol3 = pol1 - pol2;
+    cout << pol1 - pol2;
     cout << pol1(2);
     cout << "\n";
     return 0;
