@@ -13,9 +13,11 @@ int main()
     F >> pol3;
     F.close();
     cout << pol1;
-    cout << pol2;
-    cout << pol3;
-    cout << (pol3 / pol1);
+    //cout << pol2;
+    //cout << pol3;
+    cout << (pol1/ pol3);
+    cout << (pol1% pol3);
+    cout << pol1;
     cout << "\n";
     return 0;
 }

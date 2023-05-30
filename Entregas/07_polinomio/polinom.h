@@ -36,6 +36,7 @@ public:
     Polinom operator- (const Polinom &p);
     Polinom operator* (const Polinom &mult);
     Polinom operator/ (const Polinom &d);
+    Polinom operator% (const Polinom &d);
     float operator() (float x);
     bool operator== (const Polinom &p);
     bool operator!= (const Polinom &p);
@@ -254,15 +255,41 @@ Polinom Polinom:: operator/ (const Polinom &d) //&d = divisor
         int i = 0; //pivote para la division
         while ( (r != 0) and ((r.grade-i) >= d.grade)) // condiciones para finalizar la division (resto 0 o dividendo de menor orden que el divisor)
         {
-            res.coeficents[res.grade - i] = coeficents[grade-i]/d.coeficents[d.grade]; // calculo un nuevo termino del polinomio resultado
+            res.coeficents[res.grade - i] = r.coeficents[grade-i]/d.coeficents[d.grade]; // calculo un nuevo termino del polinomio resultado
             for(int j = 0; j<= d.grade; j++) //divisor - dividendo * (termino nuevo del resultado)  //se itera sobre cada termino del divisor
             {
-                coeficents[grade-i-j] -= (d.coeficents[d.grade-j]*res.coeficents[res.grade-i]);
+                r.coeficents[grade-i-j] -= (d.coeficents[d.grade-j]*res.coeficents[res.grade-i]);
             }
         i++; //actualizacion del pibote
         };
     }
     return res;
+}
+
+Polinom Polinom:: operator% (const Polinom &d) //&d = divisor
+{
+    Polinom r(*this); //dividendo
+    Polinom res;
+    if((d.coeficents != NULL and (d.grade != 0 or d.coeficents[0] != 0))) //compruevo que mi divisor no sea el polinomio nulo
+    {
+        if(grade >= d.grade)
+        {
+            res.grade = grade-d.grade;
+            delete(res.coeficents);
+            res.coeficents = new float[res.grade];
+        }
+        int i = 0; //pivote para la division
+        while ( (r != 0) and ((r.grade-i) >= d.grade)) // condiciones para finalizar la division (resto 0 o dividendo de menor orden que el divisor)
+        {
+            res.coeficents[res.grade - i] = r.coeficents[grade-i]/d.coeficents[d.grade]; // calculo un nuevo termino del polinomio resultado
+            for(int j = 0; j<= d.grade; j++) //divisor - dividendo * (termino nuevo del resultado)  //se itera sobre cada termino del divisor
+            {
+                r.coeficents[grade-i-j] -= (d.coeficents[d.grade-j]*res.coeficents[res.grade-i]);
+            }
+        i++; //actualizacion del pibote
+        };
+    }
+    return r;
 }
 Polinom::~Polinom()
 {
