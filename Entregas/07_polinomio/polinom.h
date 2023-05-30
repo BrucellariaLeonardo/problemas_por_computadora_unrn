@@ -288,11 +288,39 @@ Polinom Polinom:: operator% (const Polinom &d) //&d = divisor
             }
         i++; //actualizacion del pibote
         };
+
+        for(int j= r.grade; j>=0; j--) //limpieza de ceros y actualizacion del grade de r
+        {
+            if(r.coeficents[j] != 0)
+            {
+                float* aux = new float[j];
+                r.grade = j;
+                for(int k=0; k<=j; k++) 
+                {
+                    aux[k] = r.coeficents[k];
+                }
+                delete(r.coeficents);
+                r.coeficents = new float[r.grade];
+                for(int k = 0; k<= r.grade; k++)
+                {
+                    r.coeficents[k] = aux[k];
+                }
+                delete(aux);
+                break;
+            }else if(j == 0)
+            {
+                r.grade = 0;
+                delete(r.coeficents);
+                r.coeficents = new float[0];
+                r.coeficents[0] = 0;
+            }
+        }
     }
     return r;
 }
 Polinom::~Polinom()
 {
+    delete(coeficents);
 }
 
 
