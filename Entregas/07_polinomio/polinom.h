@@ -35,9 +35,14 @@ public:
     Polinom operator+ (const Polinom &p);
     Polinom operator- (const Polinom &p);
     Polinom operator* (const Polinom &mult);
-    float operator() (int x);
+    Polinom operator/ (const Polinom &d);
+    float operator() (float x);
+    bool operator== (const Polinom &p);
+    bool operator!= (const Polinom &p);
+    bool operator!= (const float c);
     friend istream &operator>> (istream &data, Polinom &pol);
     friend ostream &operator<<  (std:: ostream& out, const Polinom &pol);
+
 
 };
 
@@ -154,7 +159,7 @@ Polinom Polinom::operator- (const Polinom &p)
     }
     return res;
 }  
-float Polinom::operator() (int x)
+float Polinom::operator() (float x)
 {
     float res = 0;
     for(int i= 0; i<=grade; i++)
@@ -163,6 +168,56 @@ float Polinom::operator() (int x)
     }
     return res;
 }
+bool Polinom:: operator== (const Polinom &p)
+{
+    bool flag = true;
+    if(p.grade == grade)
+    {
+        for(int i = 0; i<=grade; i++)
+        {
+            if(coeficents[i] != p.coeficents[i])
+            {
+                flag = false;
+            }
+        }
+
+    }else{
+        flag = false;
+    }
+    return flag;
+}
+bool Polinom:: operator!= (const Polinom &p)
+{
+    bool flag = false;
+    if(p.grade == grade)
+    {
+        for(int i = 0; i<=grade; i++)
+        {
+            if(coeficents[i] != p.coeficents[i])
+            {
+                flag = true;
+            }
+        }
+
+    }else{
+        flag = true;
+    }
+    return flag;
+}
+bool Polinom::operator!= (const float c)
+{
+    bool flag = false;
+    for (int i =0; i<=grade; i++)
+    {
+        if( coeficents[i] != c)
+        {
+            flag = true;
+            break;
+        }
+    }
+    return flag;
+}
+
 
 Polinom Polinom::operator* (const Polinom &mult) //TO DO
 {
@@ -180,6 +235,32 @@ Polinom Polinom::operator* (const Polinom &mult) //TO DO
             res.coeficents[i+j] += mult.coeficents[i]*coeficents[j];
         }
 
+    }
+    return res;
+}
+
+Polinom Polinom:: operator/ (const Polinom &d) //&d = divisor
+{
+    Polinom r(*this); //dividendo
+    Polinom res;
+    if((d.coeficents != NULL and (d.grade != 0 or d.coeficents[0] != 0))) //compruevo que mi divisor no sea el polinomio nulo
+    {
+        if(grade >= d.grade)
+        {
+            res.grade = grade-d.grade;
+            delete(res.coeficents);
+            res.coeficents = new float[res.grade];
+        }
+        int i = 0; //pivote para la division
+        while ( (r != 0) and ((r.grade-i) >= d.grade)) // condiciones para finalizar la division (resto 0 o dividendo de menor orden que el divisor)
+        {
+            res.coeficents[res.grade - i] = coeficents[grade-i]/d.coeficents[d.grade]; // calculo un nuevo termino del polinomio resultado
+            for(int j = 0; j<= d.grade; j++) //divisor - dividendo * (termino nuevo del resultado)  //se itera sobre cada termino del divisor
+            {
+                coeficents[grade-i-j] -= (d.coeficents[d.grade-j]*res.coeficents[res.grade-i]);
+            }
+        i++; //actualizacion del pibote
+        };
     }
     return res;
 }

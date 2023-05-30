@@ -15,7 +15,7 @@ int main()
     cout << pol1;
     cout << pol2;
     cout << pol3;
-    cout << pol3 * pol2;
+    cout << (pol3 / pol1);
     cout << "\n";
     return 0;
 }
