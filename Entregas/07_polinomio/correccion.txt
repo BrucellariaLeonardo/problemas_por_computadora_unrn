@@ -1,0 +1,7 @@
+- polinom.h incluye la implementación de las funciones de polinomios cuando debieran estar en
+un cpp.
+- tenés liberado con delete en lugar de delete[] un arreglo solicitado con new[]
+- no implemental a entrada por línea de comandos y tiene cableado el archivo de entrada
+- no implementa factorizar ni el método de bisección.
+
+Corrección: Reentragar
