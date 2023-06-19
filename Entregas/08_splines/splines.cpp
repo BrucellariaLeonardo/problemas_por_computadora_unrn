@@ -4,7 +4,7 @@ Spline:: Spline(string formula, double xIni, double xEnd, int nPoints)
 {
     //inicialization of the structure
     step = (xEnd-xIni)/(nPoints-1); //definition space betwin one x and the next
-    formula = formula;
+    this->formula = formula;
 
     //lectura de la expresion
     symbol s("x");
@@ -39,4 +39,24 @@ double Spline:: operator() (double x0)
     h01 = -2*std::pow(t,3)+3*std::pow(t,2);
     h11 = std::pow(t,3)-std::pow(t,2);
     return h00*p[i]+h10*(x[i+1]-x[i])*m[i]+h01*p[i+1]+h11*(x[i+1]-x[i])*m[i+1];
+}
+ostream &operator<<  (std:: ostream& out, const Spline &s)
+{
+    out << s.formula <<endl;
+    for(double element: s.x)
+    {
+        out << element << " ";
+    }
+    out << endl;
+    for(double element: s.p)
+    {
+        out << element << " ";
+    }
+    out << endl;
+    for(double element: s.m)
+    {
+        out << element << " ";
+    }
+    out << endl;
+    return out;
 }

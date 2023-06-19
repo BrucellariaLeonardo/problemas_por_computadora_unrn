@@ -1,15 +1,19 @@
 #include <iostream>
 #include <ginac/ginac.h>
 #include "splines.h"
+#include <fstream>
 using namespace std;
 using namespace GiNaC;
 int main(int argc, char** argv)
-//este programa recibe por terminal la expresio a evaluar y luego recibe el valor en el que debe ser evaluada
+//este programa recibe por terminal la expresio a evaluar y luego recibe el valor en el que debe ser evaluada y finalmente recibe el nombre del archivo donde guardar
 {
     Spline s(argv[1],0,3,30);
     float x;
+    ofstream out;
     x = stof(argv[2]);
     cout << s(x) <<endl;
+    out.open(argv[3]);
+    out << s;
     return 0;
 }
 // CODIGO DE EJEMPLO DE USO DE GINAC

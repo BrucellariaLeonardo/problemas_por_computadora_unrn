@@ -26,6 +26,6 @@ class Spline
     public:
     Spline(string formula, double xIni, double xEnd, int nDivisions);
     double operator() (double x0);
-
+    friend ostream &operator<<  (std:: ostream& out, const Spline &s);
 };
 #endif
