@@ -4,9 +4,12 @@
 using namespace std;
 using namespace GiNaC;
 int main(int argc, char** argv)
+//este programa recibe por terminal la expresio a evaluar y luego recibe el valor en el que debe ser evaluada
 {
     Spline s(argv[1],0,3,30);
-    cout << s(1.8) <<endl;
+    float x;
+    x = stof(argv[2]);
+    cout << s(x) <<endl;
     return 0;
 }
 // CODIGO DE EJEMPLO DE USO DE GINAC
