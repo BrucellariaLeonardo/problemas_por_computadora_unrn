@@ -5,7 +5,8 @@ using namespace std;
 using namespace GiNaC;
 int main(int argc, char** argv)
 {
-    Spline s("2*x-7*x^10+sin(x)",0,3,6);
+    Spline s(argv[1],0,3,30);
+    cout << s(1.8) <<endl;
     return 0;
 }
 // CODIGO DE EJEMPLO DE USO DE GINAC

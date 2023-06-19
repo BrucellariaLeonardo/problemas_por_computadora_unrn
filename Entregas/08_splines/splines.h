@@ -10,6 +10,9 @@ este tipo de spline posee derivada primera continua y suave, pero la derivada se
 #define SPLINES_H
 #include <iostream>
 #include <ginac/ginac.h>
+#include <vector>
+#include <cmath>
+
 
 using namespace std;
 using namespace GiNaC;
@@ -17,11 +20,12 @@ using namespace GiNaC;
 class Spline
 {
     private:
-    float *x, *p,*m; //punteros para almacenar los puntos de control y su evaluacion en la funcion y la derivada
-    float step; //tamaño de paso
-    int n; //numero de pasos
+    vector<double> x, p,m; //punteros para almacenar los puntos de control y su evaluacion en la funcion y la derivada
+    double step; //tamaño de paso
     string formula; //expresion cerrada que se representa
     public:
-    Spline(string formula, float xIni, float xEnd, int nDivisions);
+    Spline(string formula, double xIni, double xEnd, int nDivisions);
+    double operator() (double x0);
+
 };
 #endif
