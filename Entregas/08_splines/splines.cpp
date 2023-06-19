@@ -30,7 +30,13 @@ Spline:: Spline(string formula, double xIni, double xEnd, int nPoints)
 }
 double Spline:: operator() (double x0)
 {
+    double h00, h01, h10, h11;
     int i = floor((x0-x[0])/step);
     double t = (x0 - x[i])/(x[i+1]-x[i]);
-    return (2*p[i]+m[i]-2*p[i+1]+m[i+1])*std::pow(t,3) + (-3*p[i]+3*p[i+1]-2*m[i]-m[i+1])*std::pow(t,2)+m[i]*t+p[i];
+    //return (2*p[i]+m[i]-2*p[i+1]+m[i+1])*std::pow(t,3) + (-3*p[i]+3*p[i+1]-2*m[i]-m[i+1])*std::pow(t,2)+m[i]*t+p[i];
+    h00 = 2*std::pow(t,3)-3*std::pow(t,2)+1;
+    h10 = std::pow(t,3)-2*std::pow(t,2)+t;
+    h01 = -2*std::pow(t,3)+3*std::pow(t,2);
+    h11 = std::pow(t,3)-std::pow(t,2);
+    return h00*p[i]+h10*(x[i+1]-x[i])*m[i]+h01*p[i+1]+h11*(x[i+1]-x[i])*m[i+1];
 }
