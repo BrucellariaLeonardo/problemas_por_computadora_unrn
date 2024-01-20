@@ -113,3 +113,27 @@ void escalarMat(matrixT mat, float escalar)
     }
     return;
 }
+
+void matrixExport(char fname[], matrixT matrix)
+{
+    // abro/creo el archivo de destino
+    FILE *fptr;
+    fptr = fopen( fname , "w");
+
+    // escribo la cantidad de filas y columnas de la matriz
+    fprintf(fptr, "%d %d\n", matrix.dimFil, matrix.dimCol);
+    
+    // escribo los datos de la matriz
+    for(int fil=0; fil<matrix.dimFil; fil++)
+    {
+        for(int col=0; col<matrix.dimCol; col++)
+        {
+            fprintf(fptr, "%f ", matrix.data[fil][col]);
+        }
+        fprintf(fptr, "\n");
+    }
+
+    //libero el archivo
+    fclose(fptr);
+    return;
+}

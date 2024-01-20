@@ -17,4 +17,6 @@ matrixT addMat(matrixT A, matrixT B);
 void freeMat(matrixT mat);
 void escalarMat(matrixT mat, float escalar);
 
+void matrixExport(char fname[], matrixT matrix);
+
 #endif

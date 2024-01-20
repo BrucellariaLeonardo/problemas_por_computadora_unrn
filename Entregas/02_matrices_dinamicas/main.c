@@ -32,7 +32,10 @@ int main(int argc, char* argv[])
         printMatrix(mat[2]);
         if(argc == 4) //si recibi un archivo de salida lo escribo
         {
-            //TO DO, escribir el archivo de salida
+            printf("\nmatriz obtenida en el archivo de salida:\n");
+            matrixExport("salida.txt", mat[2]);
+            FILE *fp = fopen("salida.txt", "r");
+            printMatrix( matrixLoader( fp ) );
         }
         for(int i; i<3; i++)
         {
