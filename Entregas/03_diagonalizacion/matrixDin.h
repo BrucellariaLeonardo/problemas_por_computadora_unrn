@@ -18,6 +18,8 @@ void escalarMat(matrixT mat, float escalar);
 matrixT subMat(matrixT mat, int fil, int col);
 matrixT diag(matrixT mat);
 //float det(matrixT mat);
+void matrixExport(char fname[], matrixT matrix);
+
 
 #endif
 
