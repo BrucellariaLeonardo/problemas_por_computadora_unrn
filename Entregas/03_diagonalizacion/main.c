@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
                     fclose(fptr);
                 }else
                 {
-                    printf("fallo al abrir el archivo");
+                    fprintf(stderr, "Fallo al abrir el archivo %s. Error: %s\n", argv[arg], strerror(errno));
                     exit(-1);
                 }
         }
@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
         }
         return 0;
     }else{
-        printf("Numero de parametros invalido.");
+        fprintf(stderr,"Numero de parametros invalido.\n");
         exit(-2);
     }
     //comprobar que es diagonalizable

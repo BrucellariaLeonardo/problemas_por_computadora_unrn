@@ -6,7 +6,7 @@ float** matrixAloc(int dim1,int dim2)
     mat = calloc(dim1, sizeof(float*)); //creo el arreglo para guardar cada fila
     if( mat == NULL)
     {
-        printf("Fallo al reservar memoria.");
+        fprintf(stderr, "Error: %s\n", strerror(errno));
         exit(-1);
     }
     for (int i=0; i<dim1; i++)
@@ -14,7 +14,7 @@ float** matrixAloc(int dim1,int dim2)
         mat[i] = calloc(dim2, sizeof(float)); //creo los arreglos de cada columna asociada a cada fila
         if(mat[i] == NULL)
         {
-            printf("Fallo al reservar memoria.");
+            fprintf(stderr, "Error: %s\n", strerror(errno));
             exit(-1);
         }
     }
@@ -32,14 +32,18 @@ matrixT matrixLoader(FILE *fptr)
         fscanf(fptr, "%d", &(matriz.dimFil));
     }else
     {
-        printf("fallo obteninedo la fila");
+        fprintf(stderr, "Fallo al cargar una matriz. Archivo de entrada corrupto.\n");
         exit(-1);
     }
     // tomo el segundo elemento del archivo para guardarlo en la dimension de la columna de la estructura
     if(!feof(fptr))
     {
         fscanf(fptr, "%d", &(matriz.dimCol));
-    }    
+    }else
+    {
+        fprintf(stderr, "Fallo al cargar una matriz. Archivo de entrada corrupto.\n");
+        exit(-1);
+    }   
     // aloco la ma memoria para mi matrix y guardo la direccion de ese puntero
     matriz.data = matrixAloc(matriz.dimFil, matriz.dimCol);
     // tomo elemento a elemento los datos del archivo para cargarlos en mi matriz
@@ -52,7 +56,8 @@ matrixT matrixLoader(FILE *fptr)
                     fscanf(fptr, "%f", &(matriz.data[fil][col]));
                 }else
                 {
-                    printf("Fallo obteniendo los valores de la mtriz, compruebe que su archivo este bien definido.");
+                    fprintf(stderr, "Fallo al cargar una matriz. Archivo de entrada corrupto.\n");
+                    exit(-1);
                 }
         }
     }
@@ -117,23 +122,28 @@ void escalarMat(matrixT mat, float escalar)
 void matrixExport(char fname[], matrixT matrix)
 {
     // abro/creo el archivo de destino
-    FILE *fptr;
+    FILE *fptr = NULL;
     fptr = fopen( fname , "w");
-
-    // escribo la cantidad de filas y columnas de la matriz
-    fprintf(fptr, "%d %d\n", matrix.dimFil, matrix.dimCol);
-    
-    // escribo los datos de la matriz
-    for(int fil=0; fil<matrix.dimFil; fil++)
+    if(fptr == NULL)
     {
-        for(int col=0; col<matrix.dimCol; col++)
+        fprintf(stderr, "Fallo al abrir el archivo de salida.Error: %s\n", strerror(errno));
+        exit(-1);
+    }else
+    {
+        // escribo la cantidad de filas y columnas de la matriz
+        fprintf(fptr, "%d %d\n", matrix.dimFil, matrix.dimCol);
+        
+        // escribo los datos de la matriz
+        for(int fil=0; fil<matrix.dimFil; fil++)
         {
-            fprintf(fptr, "%f ", matrix.data[fil][col]);
+            for(int col=0; col<matrix.dimCol; col++)
+            {
+                fprintf(fptr, "%f ", matrix.data[fil][col]);
+            }
+            fprintf(fptr, "\n");
         }
-        fprintf(fptr, "\n");
+        //libero el archivo
+        fclose(fptr);
     }
-
-    //libero el archivo
-    fclose(fptr);
     return;
 }

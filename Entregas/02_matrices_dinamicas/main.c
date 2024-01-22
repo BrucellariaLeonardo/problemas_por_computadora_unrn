@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
                     fclose(fptr);
                 }else
                 {
-                    printf("fallo al abrir el archivo");
+                   fprintf(stderr, "Fallo al abrir el archivo %s. Error: %s\n", argv[arg], strerror(errno));
                     exit(-1);
                 }
         }
@@ -32,9 +32,9 @@ int main(int argc, char* argv[])
         printMatrix(mat[2]);
         if(argc == 4) //si recibi un archivo de salida lo escribo
         {
-            printf("\nmatriz obtenida en el archivo de salida:\n");
             matrixExport("salida.txt", mat[2]);
             FILE *fp = fopen("salida.txt", "r");
+            printf("\nmatriz obtenida en el archivo de salida:\n");
             printMatrix( matrixLoader( fp ) );
         }
         for(int i; i<3; i++)
@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
             freeMat(mat[i]);
         }
     }else{
-        printf("Numero de parametros invalido.");
+        fprintf(stderr,"Numero de parametros invalido.\n");
         exit(-2);
     }
     return 0;   
